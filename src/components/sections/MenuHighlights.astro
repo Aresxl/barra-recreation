@@ -1,0 +1,385 @@
+---
+import { getCollection } from "astro:content";
+
+// Components
+import Heading from "../ui/Heading.astro";
+import CustomPicture from "../ui/CustomPicture.astro";
+import LinkOrButton from "../ui/LinkOrButton.astro";
+
+// Images
+import allFoodMobile from "@/assets/images/mobile/all-food-2x.jpg";
+import allFoodDesktop from "@/assets/images/desktop/all-food-2x.jpg";
+import YellowLine from "@/assets/icons/pointer-img.svg";
+
+const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
+---
+
+<section class="menu__highlights | grid-main">
+  <header>
+    <Heading tag="h2" size="h4" title="Menu Highlights" />
+    <p class="h2">Authentic, relaxed, shareable.</p>
+    <p class="desc">
+      Our menu brings together the tradition of Latin America street food with the best local
+      produce - traced back from it’s source.
+    </p>
+    <a href="/menu">Check the menu <span>&#8618;</span></a>
+  </header>
+  <div class="carousel menu__highlights-carousel">
+    <div class="carousel__button-wrapper">
+      <button class="carousel__btn prev" data-carousel-btn="prev">&lt;</button>
+      <button class="carousel__btn next" data-carousel-btn="next">&gt;</button>
+    </div>
+
+    <ul class="carousel__list">
+      {
+        menuSlideshowCollection.map((slide, i) => {
+          return (
+            <li class="carousel__card" data-active={i === 0 ? true : undefined}>
+              <div class="img__wrapper">
+                <CustomPicture
+                  desktop={slide.data.image}
+                  mobile={slide.data.image}
+                  fallbackWidth={slide.data.image.width}
+                  fallbackHeight={slide.data.image.height}
+                  priority={false}
+                  alt=""
+                  class="carousel__picture"
+                />
+              </div>
+              <div class="content__wrapper">
+                <span class="badge">{slide.data.badge}</span>
+                <p class="description">{slide.data.description}</p>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    <div class="carousel__indicators">
+      <button class="carousel__indicator" data-indicator-active></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+      <button class="carousel__indicator"></button>
+    </div>
+  </div>
+  <div class="bottom">
+    <p>
+      Picture this - the buzz of a Latin street party, the smell of chargrilled meats, a hint of
+      spice and smoke, the sound of friends talking over music that makes you want to move. <span
+        class="fw-700">That’s what Barra feels like.</span
+      >
+    </p>
+    <div class="btn__wrapper">
+      <LinkOrButton as="a" href="/booking" variant="outline" color="black" text="Book a table" />
+      <LinkOrButton as="a" href="/events" variant="outline" color="black" text="Event enquiry" />
+    </div>
+  </div>
+
+  <div class="unknown-name-section">
+    <CustomPicture
+      desktop={allFoodDesktop}
+      mobile={allFoodMobile}
+      fallbackWidth={allFoodMobile.width}
+      fallbackHeight={allFoodMobile.height}
+      priority={false}
+      alt=""
+    />
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Tepache</span>
+    </div>
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Barra Daiquiri</span>
+    </div>
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Spanner crab arepa</span>
+    </div>
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Ora King Salmon tiradito</span>
+    </div>
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Yellow mole tostada</span>
+    </div>
+    <div class="item-info">
+      <YellowLine class="yellow-line" viewBox="0 0 50 50" />
+      <span class="item-name">Fried fresh cheese rolls</span>
+    </div>
+  </div>
+</section>
+
+<style>
+  .menu__highlights {
+    margin-block-start: 40px;
+  }
+
+  header {
+    display: grid;
+    gap: 10px;
+  }
+
+  header .desc {
+    font-size: var(--fs-450);
+  }
+
+  header a {
+    text-transform: uppercase;
+    color: var(--clr-neutral-900);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .carousel {
+    position: relative;
+    margin-block-start: 30px;
+  }
+
+  .carousel__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 80%;
+    gap: 25px;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+
+  .carousel__card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .content__wrapper {
+    background-color: var(--clr-neutral-200);
+    padding: 20px;
+  }
+
+  .badge {
+    text-transform: uppercase;
+  }
+
+  .description {
+    margin-block-start: 10px;
+    font-family: var(--ff-secondary);
+  }
+
+  .carousel__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    height: 30px;
+    width: 30px;
+    border: none;
+    border-radius: 50%;
+    background-color: hsla(0, 0%, 0%, 0.3);
+    font-size: 2rem;
+    line-height: 0px;
+    cursor: pointer;
+  }
+
+  .carousel__btn.prev {
+    left: 5px;
+  }
+  .carousel__btn.next {
+    right: 5px;
+  }
+
+  .carousel__indicators {
+    position: absolute;
+    top: 100%;
+    right: 50%;
+    transform: translateX(50%);
+    display: flex;
+    gap: 16px;
+    padding-block-start: 30px;
+
+    .carousel__indicator {
+      width: 10px;
+      height: 10px;
+      border: none;
+      border-radius: 100%;
+      background-color: #ccc;
+      cursor: pointer;
+    }
+  }
+
+  .carousel__indicator[data-indicator-active] {
+    background-color: black;
+  }
+
+  .bottom {
+    margin-block-start: 60px;
+  }
+
+  .bottom p {
+    text-align: center;
+    font-size: var(--fs-450);
+  }
+
+  .fw-700 {
+    font-weight: var(--fw-700);
+  }
+
+  .btn__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-block-start: 20px;
+    align-items: center;
+  }
+
+  .unknown-name-section {
+    position: relative;
+    margin-block: 40px;
+  }
+
+  .item-info {
+    position: absolute;
+
+    opacity: 0;
+    transform: translateX(50px);
+    transition: 250ms ease-in-out;
+    transition-property: transform, opacity;
+  }
+
+  .unknown-name-section.visible .item-info {
+    display: flex;
+    align-items: end;
+
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .item-name {
+    display: block;
+    width: 75px;
+    margin-inline-start: -10px;
+    padding-block: 2px;
+    border-radius: 10px;
+    background-color: var(--clr-neutral-0);
+    font-size: 0.625rem;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .item-info:nth-of-type(1) {
+    left: 31%;
+    top: 13%;
+    transition-delay: 0.2s;
+  }
+
+  .item-info:nth-of-type(2) {
+    left: 65%;
+    top: 22%;
+    transition-delay: 0.4s;
+  }
+
+  .item-info:nth-of-type(3) {
+    left: 13%;
+    top: 28%;
+    transition-delay: 0.6s;
+  }
+
+  .item-info:nth-of-type(4) {
+    left: 45%;
+    top: 45%;
+    transition-delay: 0.8s;
+  }
+  .item-info:nth-of-type(5) {
+    left: 28%;
+    top: 74%;
+    transition-delay: 1s;
+  }
+  .item-info:nth-of-type(6) {
+    left: 68%;
+    top: 74%;
+    transition-delay: 1.2s;
+  }
+</style>
+
+<script>
+  const carousel = document.querySelector(`.menu__highlights-carousel`);
+  const carouselBtns = carousel?.querySelectorAll<HTMLButtonElement>(`.carousel__btn`);
+  const carouselIndicatorBtns =
+    carousel?.querySelectorAll<HTMLButtonElement>(`.carousel__indicator`);
+  let isInitialLoad = true;
+
+  function goToSlide(newIndex: any) {
+    const slides = carousel!.querySelectorAll<HTMLElement>(`.carousel__card`);
+    const indicators = carousel!.querySelectorAll<HTMLButtonElement>(`.carousel__indicator`);
+
+    const currentSlide = carousel?.querySelector<HTMLElement>(`.carousel__card[data-active]`);
+    const currentIndicator = carousel?.querySelector<HTMLElement>(
+      `.carousel__indicator[data-indicator-active]`,
+    );
+
+    if (currentSlide) delete currentSlide.dataset.active;
+    if (currentIndicator) delete currentIndicator.dataset.indicatorActive;
+
+    const targetIndex = (newIndex + slides.length) % slides.length;
+
+    slides[targetIndex].dataset.active = `true`;
+    indicators[targetIndex].dataset.indicatorActive = `true`;
+
+    if (!isInitialLoad) {
+      slides[targetIndex].scrollIntoView({
+        behavior: "smooth",
+        inline: "start",
+        block: "nearest",
+      });
+    }
+    isInitialLoad = false;
+  }
+
+  carouselBtns!.forEach((btn) => {
+    btn.addEventListener(`click`, (e) => {
+      const activeSlide = carousel!.querySelector<HTMLElement>(`.carousel__card[data-active]`);
+
+      if (!activeSlide) return;
+
+      const slides = carousel!.querySelectorAll<HTMLElement>(`.carousel__card`);
+      const currentIndex = [...slides].indexOf(activeSlide);
+
+      const offset = btn.dataset.carouselBtn === "next" ? 1 : -1;
+      goToSlide(currentIndex + offset);
+    });
+  });
+
+  carouselIndicatorBtns?.forEach((btn, i) => {
+    btn.addEventListener(`click`, () => {
+      goToSlide(i);
+    });
+  });
+
+  goToSlide(0);
+
+  // Intersection Obs
+  const targetObserver = document.querySelector<HTMLElement>(`.unknown-name-section`)!;
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        entry.target.classList.add(`visible`);
+        observer.unobserve(entry.target);
+      }
+    },
+    {
+      threshold: 0.5,
+    },
+  );
+
+  observer.observe(targetObserver);
+</script>

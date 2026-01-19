@@ -1,0 +1,55 @@
+---
+import SiteLogo from "@/assets/icons/file.svg";
+---
+
+<footer class="site__footer | grid-main">
+  <SiteLogo />
+  <p>Barra is brought to you by renascence group</p>
+  <nav class="site__footer-nav">
+    <ul class="">
+      <li><a href="/contact">Contact</a></li>
+      <li><a href="tel:+6191117599">Call Us</a></li>
+    </ul>
+  </nav>
+  <p>Sister Venues</p>
+  <ul class="sister-venues">
+    <li><a href="#">Victoria</a></li>
+    <li><a href="#">Farmer's Daughters</a></li>
+    <li><a href="#">Morena Sydney</a></li>
+  </ul>
+  <div class="footer-text">
+    <p>
+      The Renascence Group and Barra acknowledges the traditional owners of the lands that we live,
+      work and eat on and recognise their ongoing connection to land, sea and community. <br />
+      We pay respect to elders, past, present and emerging.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site__footer {
+    row-gap: 20px;
+    justify-items: center;
+    padding-block: 40px 75px;
+    text-align: center;
+    color: var(--clr-primary-red-600);
+  }
+
+  .site__footer-nav ul {
+    display: flex;
+    gap: 7.5px;
+
+    a {
+      color: var(--clr-primary-red-600);
+    }
+  }
+
+  .sister-venues {
+    display: flex;
+    gap: 30px;
+
+    a {
+      color: var(--clr-primary-red-600);
+    }
+  }
+</style>

@@ -1,0 +1,138 @@
+---
+import { getImage } from "astro:assets";
+
+interface Props {
+  desktop: ImageMetadata | string;
+  mobile: ImageMetadata | string;
+  tablet?: ImageMetadata | string;
+  fallbackWidth: number;
+  fallbackHeight: number;
+  priority: boolean;
+  alt: string;
+  class?: string;
+}
+
+const {
+  mobile,
+  tablet,
+  desktop,
+  fallbackWidth,
+  fallbackHeight,
+  priority = false,
+  alt,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const desktopAvif = await getImage({
+  src: desktop,
+  priority: priority,
+  format: "avif",
+});
+const desktopWebp = await getImage({
+  src: desktop,
+  priority: priority,
+  format: "webp",
+});
+const desktopJpg = await getImage({
+  src: desktop,
+  priority: priority,
+  format: "jpg",
+});
+
+let tabletAvif;
+let tabletWebp;
+let tabletJpg;
+if (tablet) {
+  tabletAvif = await getImage({
+    src: tablet,
+    priority: priority,
+    format: "avif",
+  });
+  tabletWebp = await getImage({
+    src: tablet,
+    priority: priority,
+    format: "webp",
+  });
+  tabletJpg = await getImage({
+    src: tablet,
+    priority: priority,
+    format: "jpg",
+  });
+}
+
+const mobileAvif = await getImage({
+  src: mobile,
+  priority: priority,
+  format: "avif",
+});
+const mobileWebp = await getImage({
+  src: mobile,
+  priority: priority,
+  format: "webp",
+});
+const mobileJpg = await getImage({
+  src: mobile,
+  priority: priority,
+  format: "jpg",
+  width: fallbackWidth,
+  height: fallbackHeight,
+});
+---
+
+<picture class={className} {...rest}>
+  <!-- Desktop -->
+  <source media="(min-width: 62.5mrem)" srcset={desktopAvif.src} type="image/avif" />
+  <source media="(min-width: 62.5mrem)" srcset={desktopWebp.src} type="image/webp" />
+  <source media="(min-width: 62.5mrem)" srcset={desktopJpg.src} type="image/jpg" />
+  <!-- Tablet -->
+  <!-- Mobile -->
+  <source media="(min-width: 62.5mrem)" srcset={mobileAvif.src} type="image/avif" />
+  <source media="(min-width: 62.5mrem)" srcset={mobileWebp.src} type="image/webp" />
+  <img
+    src={mobileJpg.src}
+    alt={alt}
+    width={mobileJpg.attributes.width}
+    height={mobileJpg.attributes.height}
+    loading={priority ? "eager" : "lazy"}
+    decoding={priority ? "sync" : "async"}
+    fetchpriority={priority ? "high" : "auto"}
+  />
+</picture>
+
+<style>
+  .slideshow__picture {
+    position: absolute;
+    inset: 0;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .slideshow__picture--active {
+    position: relative;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .picture__hero img {
+    height: 480px;
+    object-fit: cover;
+  }
+
+  .community__header-picture img {
+    border-top-right-radius: 60px;
+  }
+
+  .figure__picture img {
+    width: 250px;
+    height: 250px;
+    margin-inline: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .carousel__picture img {
+    width: 100%;
+    object-fit: cover;
+  }
+</style>

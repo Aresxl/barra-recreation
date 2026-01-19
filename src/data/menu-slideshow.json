@@ -1,0 +1,50 @@
+[
+  {
+    "id": "1",
+    "image": "/src/assets/images/desktop/food-carousel-1.jpg",
+    "badge": "Signature",
+    "description": "Buñuelos, fried cassava bread, sofrito butter"
+  },
+  {
+    "id": "2",
+    "image": "/src/assets/images/desktop/food-carousel-2.jpg",
+    "badge": "Top Seller",
+    "description": "Braised Ox tongue skewer, Peruvian dried chilli"
+  },
+  {
+    "id": "3",
+    "image": "/src/assets/images/desktop/food-carousel-3.jpg",
+    "badge": "Most Popular",
+    "description": "Spanner crab arepa, Yarra Valley trout roe"
+  },
+  {
+    "id": "4",
+    "image": "/src/assets/images/desktop/food-carousel-4.jpg",
+    "badge": "New",
+    "description": "Steamed green corn tamal, oyster mushroom, burnt colorado sauce"
+  },
+  {
+    "id": "5",
+    "image": "/src/assets/images/desktop/food-carousel-5.jpg",
+    "badge": "Trending",
+    "description": "Green prawns, hokkien noodles, chaufa saltado sauce"
+  },
+  {
+    "id": "6",
+    "image": "/src/assets/images/desktop/food-carousel-6.jpg",
+    "badge": "Hot Pick",
+    "description": "Wagyu beef rib, asado negro sauce, potato and plantain puree"
+  },
+  {
+    "id": "7",
+    "image": "/src/assets/images/desktop/food-carousel-7.jpg",
+    "badge": "Must Try",
+    "description": "Tres leches, vanilla mousse, lulo"
+  },
+  {
+    "id": "8",
+    "image": "/src/assets/images/desktop/food-carousel-8.jpg",
+    "badge": "Something sweet",
+    "description": "Milk caramel custard, dulce de leche cream, port jelly, meringue"
+  }
+]

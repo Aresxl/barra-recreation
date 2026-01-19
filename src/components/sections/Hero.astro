@@ -1,0 +1,165 @@
+---
+// Images
+import TopHeroImgMobile from "@/assets/images/mobile/hero-main-2x.jpg";
+import TopHeroImgDesktop from "@/assets/images/desktop/hero-main-1x.webp";
+// Components
+import CustomPicture from "../ui/CustomPicture.astro";
+import Heading from "@/ui/Heading.astro";
+import LinkOrButton from "../ui/LinkOrButton.astro";
+import { getCollection } from "astro:content";
+
+// Data
+// import HeroImgData from "@/data/hero-slideshow.json";
+const heroGifCollection = await getCollection(`gifImages`);
+---
+
+<section class="hero | grid-main">
+  <h1 class="sr-only">BARRA Melbourne</h1>
+  <div class="picture__wrapper-top">
+    <CustomPicture
+      mobile={TopHeroImgMobile}
+      desktop={TopHeroImgDesktop}
+      fallbackWidth={TopHeroImgMobile.width}
+      fallbackHeight={TopHeroImgMobile.height}
+      priority={true}
+      alt=""
+      class="picture__hero"
+    />
+  </div>
+  <div class="slideshow__wrapper">
+    {
+      heroGifCollection.map(({ data }, i) => (
+        <CustomPicture
+          mobile={data.mobile}
+          desktop={data.desktop}
+          fallbackWidth={data.mobile.width}
+          fallbackHeight={data.mobile.height}
+          alt=""
+          priority={i === 0}
+          class:list={[`slideshow__picture`, i === 0 && `slideshow__picture--active`]}
+        />
+      ))
+    }
+  </div>
+  <header class="hero__header">
+    <span>BARRA · LATIN AMERICAN CANTINA</span>
+    <Heading size="h2" tag="h2" title="Bold Flavours, Genuine Warmth" />
+    <p class="desc">
+      Barra celebrates the flavours of South America with Australian produce. Traditional dishes,
+      Latin-inspired cocktails, and hospitality without the fuss.
+    </p>
+    <div class="btn-wrapper">
+      <LinkOrButton as="a" href="/book" variant="outline" color="yellow" text="Book now" />
+      <LinkOrButton as="a" href="/menu" variant="outline" color="white" text="menu" />
+    </div>
+  </header>
+  <div class="swiper__wrapper">
+    <ul class="swiper__list">
+      <li>Local produce</li>
+      <li>Barra seasonal menu events</li>
+      <li>Barra</li>
+      <li>Seasonal menu</li>
+      <li>Events</li>
+      <li>Group dining</li>
+      <li>Chefs selection</li>
+      <li>Breakfast, lunch &amp; dinner</li>
+      <li>Latin street cantina</li>
+      <li aria-hidden="true">Local produce</li>
+      <li aria-hidden="true">Barra seasonal menu events</li>
+      <li aria-hidden="true">Barra</li>
+      <li aria-hidden="true">Seasonal menu</li>
+      <li aria-hidden="true">Events</li>
+      <li aria-hidden="true">Group dining</li>
+      <li aria-hidden="true">Chefs selection</li>
+      <li aria-hidden="true">Breakfast, lunch & dinner</li>
+      <li aria-hidden="true">Latin street cantina</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .picture__wrapper-top {
+    position: relative;
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-color: var(--clr-neutral-900);
+      opacity: 0.7;
+    }
+  }
+
+  .slideshow__wrapper {
+    position: relative;
+    grid-row: 2 / 3;
+    grid-column: 1 / -1;
+  }
+
+  .hero__header {
+    grid-row: 1 / 2;
+    z-index: 10;
+    display: grid;
+    gap: 20px;
+    align-self: center;
+    color: var(--clr-neutral-0);
+
+    span {
+      color: var(--clr-primary-gold-400);
+      text-transform: uppercase;
+      font-family: var(--ff-main);
+      font-size: var(--fs-450);
+    }
+  }
+
+  .desc {
+    font-size: var(--fs-450);
+  }
+
+  .btn-wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  .swiper__wrapper {
+    --gap: 2rem;
+
+    grid-column: 1 / -1;
+    display: flex;
+    padding-block: 26px;
+    background-color: var(--clr-neutral-900);
+    overflow: hidden;
+
+    ul {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      animation: scroll-loop 30s linear infinite;
+
+      li {
+        color: var(--clr-primary-gold-400);
+        font-size: var(--fs-550);
+        text-transform: uppercase;
+        line-height: 1;
+      }
+    }
+  }
+
+  /* Every LI but the last */
+  .swiper__list li:not(:last-child)::after {
+    content: "·";
+    margin-inline: 1rem;
+  }
+
+  .swiper__wrapper:hover ul {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll-loop {
+    to {
+      transform: translateX(calc(-50% - 16px));
+    }
+  }
+</style>

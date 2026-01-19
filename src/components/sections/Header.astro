@@ -1,0 +1,180 @@
+---
+import LinkOrButton from "../ui/LinkOrButton.astro";
+import BarraLogo from "@/assets/icons/barra-text-logo.svg";
+---
+
+<header class="site__header | grid-main">
+  <div class="site__header-inner">
+    <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false">
+      <svg class="hamburger-icon" width="40" viewBox="0 0 100 100" aria-hidden="true">
+        <g class="top-group">
+          <rect class="line line--top" x="15" y="25" rx="7.5" width="70" height="9"></rect>
+        </g>
+        <rect class="line line--middle" x="15" y="45" rx="7.5" width="70" height="9"></rect>
+        <g class="bottom-group">
+          <rect class="line line--bottom" x="15" y="65" rx="7.5" width="70" height="9"></rect>
+        </g>
+      </svg>
+    </button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+      <ul>
+        <li>
+          <a href="/menu">Menu</a>
+        </li>
+        <li>
+          <a href="/events-groups">Events & Groups</a>
+        </li>
+        <li>
+          <a href="/whats-on">Whats' On</a>
+        </li>
+        <li>
+          <a href="/gift-cards">Gift cards</a>
+        </li>
+        <li>
+          <a href="/contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    <a href="/">
+      <BarraLogo class="site-logo" />
+    </a>
+    <LinkOrButton as="a" href="/book" variant="primary" text="book now" class="cta-btn" />
+  </div>
+
+  <!-- Unsure of how to do separate nav group -->
+</header>
+
+<style>
+  .site__header {
+    position: relative;
+  }
+
+  .site__header-inner {
+    display: flex;
+    justify-content: space-between;
+    padding-block: 20px;
+  }
+
+  .nav-toggle {
+    background-color: transparent;
+    border: 0px;
+    cursor: pointer;
+  }
+
+  .primary-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 100;
+
+    display: block;
+
+    opacity: 0;
+
+    transform: translateY(-10px);
+    transition: 250ms ease-in-out;
+    transition-property: transform, opacity;
+
+    padding-inline-start: 10px;
+    padding-block-end: 10px;
+    background-color: var(--clr-neutral-0);
+
+    ul {
+      display: grid;
+      gap: 10px;
+    }
+
+    a {
+      font-size: var(--fs-500);
+      color: var(--clr-neutral-900);
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: color 200ms ease-in-out;
+    }
+  }
+
+  .primary-nav a:hover {
+    color: var(--clr-primary-gold-400);
+  }
+
+  .nav-toggle[aria-expanded="true"] + .primary-nav {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /*  */
+
+  .top-group,
+  .bottom-group,
+  .line {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Animation for hamburger opening */
+  .nav-toggle[aria-expanded="true"] .top-group,
+  .nav-toggle[aria-expanded="true"] .bottom-group {
+    transition: transform 200ms ease-in-out;
+  }
+
+  .nav-toggle[aria-expanded="true"] .line {
+    transition:
+      transform 250ms ease-in-out 250ms,
+      opacity 0ms 250ms;
+  }
+
+  /* animation for hamburger closing */
+  .nav-toggle[aria-expanded="false"] .top-group,
+  .nav-toggle[aria-expanded="false"] .bottom-group {
+    transition: transform 200ms ease-in-out 200ms;
+  }
+  .nav-toggle[aria-expanded="false"] .line {
+    transition:
+      transform 200ms ease-in-out,
+      opacity 0ms 200ms;
+  }
+
+  .nav-toggle[aria-expanded="true"] .top-group {
+    transform: translateY(20px);
+  }
+
+  .nav-toggle[aria-expanded="true"] .line--top {
+    transform: rotate(45deg);
+  }
+
+  .nav-toggle[aria-expanded="true"] .line--middle {
+    opacity: 0;
+  }
+  .nav-toggle[aria-expanded="true"] .bottom-group {
+    transform: translateY(-20px);
+  }
+  .nav-toggle[aria-expanded="true"] .line--bottom {
+    transform: rotate(-45deg);
+  }
+
+  .site-logo {
+    width: 100px;
+    height: 55px;
+  }
+
+  .btn {
+    transition: 250ms ease-in-out;
+    transition-property: background-color, outline;
+    outline: 1px solid var(--clr-primary-gold-400);
+  }
+
+  .btn:hover {
+    background-color: transparent;
+    outline: 1px solid var(--clr-primary-gold-400);
+  }
+</style>
+
+<script>
+  const navToggle = document.querySelector(`.nav-toggle`);
+
+  navToggle?.addEventListener(`click`, () => {
+    const isExpanded = navToggle.getAttribute(`aria-expanded`) === `true`;
+    navToggle.setAttribute(`aria-expanded`, String(!isExpanded));
+  });
+</script>

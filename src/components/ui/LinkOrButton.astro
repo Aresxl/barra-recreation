@@ -1,0 +1,93 @@
+---
+import type { HTMLAttributes } from "astro/types";
+
+interface AnchorProps extends HTMLAttributes<"a"> {
+  as?: "a";
+  href: string;
+  text: string;
+  variant: "primary" | "outline";
+  color?: "black" | "yellow" | "white";
+}
+
+interface ButtonProps extends HTMLAttributes<"button"> {
+  as: "button";
+  text: string;
+  type?: "submit" | "reset" | "button";
+  variant: "primary" | "outline";
+  color?: "black" | "yellow" | "white";
+}
+
+type Props = AnchorProps | ButtonProps;
+const props = Astro.props as Props;
+
+const { as, text, variant, color, ...rest } = Astro.props;
+
+const inferredAs = "href" in props ? "a" : (as ?? "button");
+---
+
+{
+  inferredAs === "a" ? (
+    <a class:list={["btn", `btn--${variant}`, `btn--${variant}-${color}`]} {...rest}>
+      {text}
+    </a>
+  ) : (
+    <button class:list={["btn", `btn--${variant}`]} {...rest}>
+      {text}
+    </button>
+  )
+}
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    min-height: 43px;
+    padding-inline: 38px;
+    font-family: var(--ff-main);
+    font-weight: var(--fw-500);
+  }
+
+  .btn--primary {
+    background-color: var(--clr-primary-gold-400);
+    color: var(--clr-neutral-900);
+    border-radius: 8px;
+  }
+
+  .btn--outline {
+    border-radius: 12px;
+    transition: 250ms ease-in-out;
+    transition-property: background-color, color;
+  }
+
+  .btn--outline-yellow {
+    color: var(--clr-primary-gold-400);
+    outline: 1px solid var(--clr-primary-gold-400);
+
+    &:hover {
+      color: var(--clr-neutral-900);
+      background-color: var(--clr-primary-gold-400);
+    }
+  }
+
+  .btn--outline-white {
+    color: var(--clr-neutral-0);
+    outline: 1px solid var(--clr-neutral-0);
+
+    &:hover {
+      color: var(--clr-neutral-900);
+      background-color: var(--clr-neutral-0);
+    }
+  }
+
+  .btn--outline-black {
+    color: var(--clr-neutral-900);
+    outline: 1px solid var(--clr-neutral-900);
+
+    &:hover {
+      color: var(--clr-neutral-0);
+      background-color: var(--clr-neutral-900);
+    }
+  }
+</style>
