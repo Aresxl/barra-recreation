@@ -5,7 +5,7 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
 
 <header class="site__header | grid-main">
   <div class="site__header-inner">
-    <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false">
+    <button class="nav-toggle" aria-controls="mobile-primary-nav" aria-expanded="false">
       <svg class="hamburger-icon" width="40" viewBox="0 0 100 100" aria-hidden="true">
         <g class="top-group">
           <rect class="line line--top" x="15" y="25" rx="7.5" width="70" height="9"></rect>
@@ -16,7 +16,8 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
         </g>
       </svg>
     </button>
-    <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
+
+    <nav id="mobile-primary-nav" class="mobile-nav" aria-label="Mobile primary navigation">
       <ul>
         <li>
           <a href="/menu">Menu</a>
@@ -35,10 +36,36 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
         </li>
       </ul>
     </nav>
-    <a href="/">
-      <BarraLogo class="site-logo" />
-    </a>
-    <LinkOrButton as="a" href="/book" variant="primary" text="book now" class="cta-btn" />
+
+    <nav class="nav nav--left" aria-label="Desktop navigation left">
+      <ul>
+        <li>
+          <a href="/menu">Menu</a>
+        </li>
+        <li>
+          <a href="/events-groups">Events & Groups</a>
+        </li>
+        <li>
+          <a href="/whats-on">Whats' On</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div>
+      <a href="/">
+        <BarraLogo class="site-logo" />
+      </a>
+    </div>
+
+    <div class="nav__right-wrapper">
+      <nav class="nav nav--right" aria-label="Desktop navigation right">
+        <ul>
+          <li><a href="/gift-cards">Gift cards</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <LinkOrButton as="a" href="/book" variant="primary" text="book now" class="cta-btn" />
+    </div>
   </div>
 
   <!-- Unsure of how to do separate nav group -->
@@ -52,6 +79,7 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
   .site__header-inner {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding-block: 20px;
   }
 
@@ -61,7 +89,7 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
     cursor: pointer;
   }
 
-  .primary-nav {
+  .mobile-nav {
     position: absolute;
     top: 100%;
     left: 0;
@@ -84,23 +112,27 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
       display: grid;
       gap: 10px;
     }
-
-    a {
-      font-size: var(--fs-500);
-      color: var(--clr-neutral-900);
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: color 200ms ease-in-out;
-    }
   }
 
-  .primary-nav a:hover {
+  nav a {
+    font-size: var(--fs-400);
+    color: var(--clr-neutral-900);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 200ms ease-in-out;
+  }
+
+  nav a:hover {
     color: var(--clr-primary-gold-400);
   }
 
-  .nav-toggle[aria-expanded="true"] + .primary-nav {
+  .nav-toggle[aria-expanded="true"] + .mobile-nav {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .nav {
+    display: none;
   }
 
   /*  */
@@ -167,6 +199,35 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
   .btn:hover {
     background-color: transparent;
     outline: 1px solid var(--clr-primary-gold-400);
+  }
+
+  @media (min-width: 40rem) {
+    .nav-toggle,
+    .mobile-nav {
+      display: none;
+    }
+
+    .nav {
+      display: block;
+
+      ul {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+      }
+    }
+
+    .nav__right-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  @media (min-width: 46rem) {
+    nav a {
+      font-size: var(--fs-500);
+    }
   }
 </style>
 
