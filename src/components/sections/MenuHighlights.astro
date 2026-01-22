@@ -93,6 +93,7 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
       fallbackHeight={allFoodMobile.height}
       priority={false}
       alt=""
+      class="all-food-picture"
     />
     <div class="item-info">
       <YellowLine class="yellow-line" viewBox="0 0 50 50" />
@@ -279,9 +280,11 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
 
   .item-name {
     display: block;
-    width: 75px;
+    min-width: 75px;
+
     margin-inline-start: -10px;
-    padding-block: 2px;
+    padding-block: 4px;
+    padding-inline: 8px;
     border-radius: 10px;
     background-color: var(--clr-neutral-0);
     font-size: 0.625rem;
@@ -323,6 +326,13 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
     transition-delay: 1.2s;
   }
 
+  @media (min-width: 33.125rem) {
+    .item-info:nth-of-type(3) {
+      left: 20%;
+      top: 38%;
+    }
+  }
+
   @media (min-width: 40rem) {
     .carousel {
       max-width: 42rem;
@@ -355,6 +365,42 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
       row-gap: 5px;
       align-items: start;
       justify-items: start;
+    }
+
+    .item-name {
+      font-size: var(--fs-250);
+      padding-block: 6px;
+      padding-inline: 12px;
+    }
+
+    .item-info:nth-of-type(1) {
+      left: 34%;
+    }
+
+    .item-info:nth-of-type(2) {
+      left: 68%;
+    }
+
+    .item-info:nth-of-type(3) {
+      left: 20%;
+      top: 38%;
+      transition-delay: 0.6s;
+    }
+
+    .item-info:nth-of-type(4) {
+      left: 45%;
+      top: 45%;
+      transition-delay: 0.8s;
+    }
+    .item-info:nth-of-type(5) {
+      left: 28%;
+      top: 74%;
+      transition-delay: 1s;
+    }
+    .item-info:nth-of-type(6) {
+      left: 65%;
+      top: 74%;
+      transition-delay: 1.2s;
     }
   }
 </style>

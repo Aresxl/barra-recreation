@@ -165,7 +165,7 @@ import CarouselSlideDesktopImg3 from "@/assets/images/desktop/lamp-2x.jpg";
       img {
         border-radius: 15px;
         object-fit: cover;
-        height: 300px;
+        height: 350px;
       }
     }
 
@@ -261,10 +261,20 @@ import CarouselSlideDesktopImg3 from "@/assets/images/desktop/lamp-2x.jpg";
         position: relative;
         opacity: 1;
         visibility: unset;
+
+        img {
+          min-height: 465px;
+          border-radius: 30px;
+        }
       }
 
       .slide--3 {
         grid-column: 1 / -1;
+
+        img {
+          width: 100%;
+          object-fit: cover;
+        }
       }
     }
   }

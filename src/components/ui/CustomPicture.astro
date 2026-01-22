@@ -9,8 +9,13 @@ interface Props {
   fallbackHeight: number;
   priority: boolean;
   alt: string;
+  layout?: "constrained" | "full-width" | "fixed" | "none";
+  widths?: number[];
+  sizes?: string;
   class?: string;
 }
+
+const customWidths = [320, 480, 640, 768, 1024, 1280, 1536, 1920, 2560];
 
 const {
   mobile,
@@ -20,77 +25,133 @@ const {
   fallbackHeight,
   priority = false,
   alt,
+  layout = "none",
+  widths = customWidths,
+  sizes: globalSizes,
   class: className,
   ...rest
 } = Astro.props;
+
+// const baseOptions = {
+//   priority,
+//   layout,
+//   widths,
+//   quality: 80,
+// };
+
+const desktopSizes = globalSizes || "(min-width: 64rem) 100vw, 1200px";
+const tabletSizes = globalSizes || "(min-width: 40rem) 100vw, 768px";
+const mobileSizes = globalSizes || "100vw";
 
 const desktopAvif = await getImage({
   src: desktop,
   priority: priority,
   format: "avif",
+  widths: customWidths,
+  sizes: desktopSizes,
 });
 const desktopWebp = await getImage({
   src: desktop,
   priority: priority,
   format: "webp",
+  widths: customWidths,
+  sizes: desktopSizes,
 });
 const desktopJpg = await getImage({
   src: desktop,
   priority: priority,
   format: "jpg",
+  widths: customWidths,
+  sizes: desktopSizes,
 });
 
-let tabletAvif;
-let tabletWebp;
-let tabletJpg;
-if (tablet) {
-  tabletAvif = await getImage({
-    src: tablet,
-    priority: priority,
-    format: "avif",
-  });
-  tabletWebp = await getImage({
-    src: tablet,
-    priority: priority,
-    format: "webp",
-  });
-  tabletJpg = await getImage({
-    src: tablet,
-    priority: priority,
-    format: "jpg",
-  });
-}
+// let tabletAvif;
+// let tabletWebp;
+// let tabletJpg;
+// if (tablet) {
+//   tabletAvif = await getImage({
+//     src: tablet,
+//     priority: priority,
+//     format: "avif",
+//   });
+//   tabletWebp = await getImage({
+//     src: tablet,
+//     priority: priority,
+//     format: "webp",
+//   });
+//   tabletJpg = await getImage({
+//     src: tablet,
+//     priority: priority,
+//     format: "jpg",
+//   });
+// }
 
 const mobileAvif = await getImage({
   src: mobile,
   priority: priority,
   format: "avif",
+  widths: customWidths,
+  sizes: mobileSizes,
 });
 const mobileWebp = await getImage({
   src: mobile,
   priority: priority,
   format: "webp",
+  widths: customWidths,
+  sizes: mobileSizes,
 });
 const mobileJpg = await getImage({
   src: mobile,
   priority: priority,
   format: "jpg",
+  widths: customWidths,
+  sizes: mobileSizes,
   width: fallbackWidth,
   height: fallbackHeight,
 });
+
+console.log("THIS IS THE DESKTOP AVIF", desktopAvif);
+console.log("THIS IS THE MOBILE AVIF", mobileAvif);
 ---
 
 <picture class={className} {...rest}>
   <!-- Desktop -->
-  <source media="(min-width: 40rem)" srcset={desktopAvif.src} type="image/avif" />
-  <source media="(min-width: 40rem)" srcset={desktopWebp.src} type="image/webp" />
-  <source media="(min-width: 40rem)" srcset={desktopJpg.src} type="image/jpeg" />
+  <source
+    media="(min-width: 40rem)"
+    srcset={desktopAvif.srcSet.attribute}
+    sizes={desktopAvif.attributes.sizes}
+    type="image/avif"
+  />
+  <source
+    media="(min-width: 40rem)"
+    srcset={desktopWebp.srcSet.attribute}
+    sizes={desktopWebp.attributes.sizes}
+    type="image/webp"
+  />
+  <source
+    media="(min-width: 40rem)"
+    srcset={desktopJpg.srcSet.attribute}
+    sizes={desktopJpg.attributes.sizes}
+    type="image/jpeg"
+  />
   <!-- Tablet -->
   <!-- Mobile -->
-  <source media="(max-width: 40rem)" srcset={mobileAvif.src} type="image/avif" />
-  <source media="(max-width: 40rem)" srcset={mobileWebp.src} type="image/webp" />
+  <source
+    media="(max-width: 40rem)"
+    srcset={mobileAvif.srcSet.attribute}
+    sizes={mobileAvif.attributes.sizes}
+    type="image/avif"
+  />
+  <source
+    media="(max-width: 40rem)"
+    srcset={mobileWebp.srcSet.attribute}
+    sizes={mobileWebp.attributes.sizes}
+    type="image/webp"
+  />
   <img
     src={mobileJpg.src}
+    srcset={mobileJpg.srcSet?.attribute}
+    sizes={mobileJpg.attributes.sizes || "100vw"}
     alt={alt}
     width={mobileJpg.attributes.width}
     height={mobileJpg.attributes.height}
@@ -139,6 +200,13 @@ const mobileJpg = await getImage({
     object-fit: cover;
   }
 
+  @media (min-width: 40rem) {
+    .all-food-picture img {
+      width: 100%;
+    }
+  }
+
+  /* 736px */
   @media (min-width: 46rem) {
     .community__header-picture img {
       border-top-right-radius: 0px;

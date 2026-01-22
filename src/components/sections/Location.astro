@@ -12,7 +12,9 @@
       allowfullscreen=""
       loading="lazy"
       referrerpolicy="no-referrer-when-downgrade"
-      class="map"></iframe>
+      class="map"
+    >
+    </iframe>
   </div>
   <div class="location__details">
     <address>73 Little Collins Street, Melbourne, 3000</address>
@@ -66,5 +68,23 @@
 
   .telephone {
     color: var(--clr-neutral-900);
+  }
+
+  @media (min-width: 40rem) {
+    .location {
+      padding-inline: 10px;
+    }
+
+    .map__wrapper {
+      grid-column: 2 / 9;
+    }
+
+    .location__details {
+      grid-column: 10 / -2;
+      align-content: center;
+      margin-block-start: 0px;
+      margin-inline-start: 20px;
+      text-align: left;
+    }
   }
 </style>

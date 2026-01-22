@@ -2,49 +2,49 @@
   {
     "id": 1,
     "mobile": "/src/assets/images/mobile/hero-gif-1-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-1-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-1-1x.jpg",
     "alt": ""
   },
   {
     "id": 2,
     "mobile": "/src/assets/images/mobile/hero-gif-2-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-2-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-2-1x.jpg",
     "alt": ""
   },
   {
     "id": 3,
     "mobile": "/src/assets/images/mobile/hero-gif-3-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-3-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-3-1x.jpg",
     "alt": ""
   },
   {
     "id": 4,
     "mobile": "/src/assets/images/mobile/hero-gif-4-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-4-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-4-1x.jpg",
     "alt": ""
   },
   {
     "id": 5,
     "mobile": "/src/assets/images/mobile/hero-gif-5-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-5-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-5-1x.jpg",
     "alt": ""
   },
   {
     "id": 6,
     "mobile": "/src/assets/images/mobile/hero-gif-6-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-6-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-6-1x.jpg",
     "alt": ""
   },
   {
     "id": 7,
     "mobile": "/src/assets/images/mobile/hero-gif-7-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-7-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-7-1x.jpg",
     "alt": ""
   },
   {
     "id": 8,
     "mobile": "/src/assets/images/mobile/hero-gif-8-2x.jpg",
-    "desktop": "/src/assets/images/mobile/hero-gif-8-1x.jpg",
+    "desktop": "/src/assets/images/desktop/hero-gif-8-1x.jpg",
     "alt": ""
   }
 ]
