@@ -1,15 +1,16 @@
 ---
+import { getCollection } from "astro:content";
+
 // Images
 import TopHeroImgMobile from "@/assets/images/mobile/hero-main-2x.jpg";
 import TopHeroImgDesktop from "@/assets/images/desktop/hero-main-1x.webp";
+
 // Components
 import CustomPicture from "../ui/CustomPicture.astro";
 import Heading from "@/ui/Heading.astro";
 import LinkOrButton from "../ui/LinkOrButton.astro";
-import { getCollection } from "astro:content";
 
 // Data
-// import HeroImgData from "@/data/hero-slideshow.json";
 const heroGifCollection = await getCollection(`gifImages`);
 ---
 
@@ -26,7 +27,7 @@ const heroGifCollection = await getCollection(`gifImages`);
       class="picture__hero"
     />
   </div>
-  <div class="slideshow__wrapper">
+  <div class="slideshow__wrapper" aria-hidden="true">
     {
       heroGifCollection.map(({ data }, i) => (
         <CustomPicture
@@ -94,8 +95,10 @@ const heroGifCollection = await getCollection(`gifImages`);
 
   .slideshow__wrapper {
     position: relative;
+    overflow: hidden;
     grid-row: 2 / 3;
     grid-column: 1 / -1;
+    aspect-ratio: 16 / 9;
   }
 
   .hero__header {
@@ -163,3 +166,17 @@ const heroGifCollection = await getCollection(`gifImages`);
     }
   }
 </style>
+
+<script>
+  const gifSlides = document.querySelectorAll<HTMLElement>(`.slideshow__picture`);
+  let currentIndex = 0;
+  const interval = 2000;
+
+  setInterval(() => {
+    gifSlides[currentIndex].classList.remove(`slideshow__picture--active`);
+
+    currentIndex = (currentIndex + 1) % gifSlides.length;
+
+    gifSlides[currentIndex].classList.add(`slideshow__picture--active`);
+  }, interval);
+</script>

@@ -10,8 +10,6 @@
     --clr-neutral-200: hsl(33, 36%, 95%);
     --clr-neutral-900: hsl(0, 0%, 0%);
 
-    --page-padding: 10px;
-
     --fs-250: 0.875rem;
     --fs-300: 0.9375rem;
     --fs-400: 1rem;
@@ -29,6 +27,8 @@
     --ff-secondary: "Inter";
 
     --ff-body-text: var(--ff-main);
+
+    --page-padding: 10px;
   }
 }
 

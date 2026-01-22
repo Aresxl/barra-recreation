@@ -16,13 +16,17 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
 
 <section class="menu__highlights | grid-main">
   <header>
-    <Heading tag="h2" size="h4" title="Menu Highlights" />
-    <p class="h2">Authentic, relaxed, shareable.</p>
-    <p class="desc">
-      Our menu brings together the tradition of Latin America street food with the best local
-      produce - traced back from it’s source.
-    </p>
-    <a href="/menu">Check the menu <span>&#8618;</span></a>
+    <div class="header__top">
+      <Heading tag="h2" size="h4" title="Menu Highlights" />
+      <p class="h2">Authentic, relaxed, shareable.</p>
+    </div>
+    <div class="header__bottom">
+      <p class="desc">
+        Our menu brings together the tradition of Latin America street food with the best local
+        produce - traced back from it’s source.
+      </p>
+      <a href="/menu">Check the menu <span>&#8618;</span></a>
+    </div>
   </header>
   <div class="carousel menu__highlights-carousel">
     <div class="carousel__button-wrapper">
@@ -67,6 +71,7 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
       <button class="carousel__indicator"></button>
     </div>
   </div>
+
   <div class="bottom">
     <p>
       Picture this - the buzz of a Latin street party, the smell of chargrilled meats, a hint of
@@ -126,6 +131,12 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
     gap: 10px;
   }
 
+  .header__top,
+  .header__bottom {
+    display: grid;
+    gap: 5px;
+  }
+
   header .desc {
     font-size: var(--fs-450);
   }
@@ -140,6 +151,8 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
   .carousel {
     position: relative;
     margin-block-start: 30px;
+    max-width: 31.25rem;
+    margin-inline: auto;
   }
 
   .carousel__list {
@@ -149,6 +162,7 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
     gap: 25px;
 
     overflow-x: auto;
+    overflow-x: hidden;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     scrollbar-width: none;
@@ -307,6 +321,41 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
     left: 65%;
     top: 74%;
     transition-delay: 1.2s;
+  }
+
+  @media (min-width: 40rem) {
+    .carousel {
+      max-width: 42rem;
+      margin-inline: auto;
+    }
+
+    .carousel__list {
+      grid-auto-columns: 48%;
+    }
+
+    .bottom {
+      margin-block-start: 100px;
+      max-width: 450px;
+      margin-inline: auto;
+    }
+
+    .btn__wrapper {
+      flex-direction: row;
+      justify-content: center;
+    }
+
+    .unknown-name-section {
+      margin-block: 70px;
+    }
+  }
+
+  @media (min-width: 46rem) {
+    header {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: 5px;
+      align-items: start;
+      justify-items: start;
+    }
   }
 </style>
 

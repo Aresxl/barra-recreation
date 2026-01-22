@@ -3,8 +3,8 @@ import { getImage } from "astro:assets";
 
 interface Props {
   desktop: ImageMetadata | string;
-  mobile: ImageMetadata | string;
   tablet?: ImageMetadata | string;
+  mobile: ImageMetadata | string;
   fallbackWidth: number;
   fallbackHeight: number;
   priority: boolean;
@@ -82,13 +82,13 @@ const mobileJpg = await getImage({
 
 <picture class={className} {...rest}>
   <!-- Desktop -->
-  <source media="(min-width: 62.5mrem)" srcset={desktopAvif.src} type="image/avif" />
-  <source media="(min-width: 62.5mrem)" srcset={desktopWebp.src} type="image/webp" />
-  <source media="(min-width: 62.5mrem)" srcset={desktopJpg.src} type="image/jpg" />
+  <source media="(min-width: 40rem)" srcset={desktopAvif.src} type="image/avif" />
+  <source media="(min-width: 40rem)" srcset={desktopWebp.src} type="image/webp" />
+  <source media="(min-width: 40rem)" srcset={desktopJpg.src} type="image/jpeg" />
   <!-- Tablet -->
   <!-- Mobile -->
-  <source media="(min-width: 62.5mrem)" srcset={mobileAvif.src} type="image/avif" />
-  <source media="(min-width: 62.5mrem)" srcset={mobileWebp.src} type="image/webp" />
+  <source media="(max-width: 40rem)" srcset={mobileAvif.src} type="image/avif" />
+  <source media="(max-width: 40rem)" srcset={mobileWebp.src} type="image/webp" />
   <img
     src={mobileJpg.src}
     alt={alt}
@@ -104,14 +104,17 @@ const mobileJpg = await getImage({
   .slideshow__picture {
     position: absolute;
     inset: 0;
-    visibility: hidden;
     opacity: 0;
+    transition: opacity 1s ease-in-out;
   }
 
   .slideshow__picture--active {
-    position: relative;
-    visibility: visible;
     opacity: 1;
+  }
+  .slideshow__picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .picture__hero img {
@@ -134,5 +137,13 @@ const mobileJpg = await getImage({
   .carousel__picture img {
     width: 100%;
     object-fit: cover;
+  }
+
+  @media (min-width: 46rem) {
+    .community__header-picture img {
+      border-top-right-radius: 0px;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 </style>

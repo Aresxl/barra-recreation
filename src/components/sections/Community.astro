@@ -9,9 +9,13 @@ import CommunityHeaderImg from "@/assets/images/mobile/community-header-2x.jpg";
 import AlejandroHeadshotMobile from "@/assets/images/mobile/chef-alejandro.jpg";
 import AlejandroHeadshotDesktop from "@/assets/images/mobile/chef-alejandro.jpg";
 
-import CarouselSlideImg1 from "@/assets/images/mobile/barra-night-2x.jpg";
-import CarouselSlideImg2 from "@/assets/images/mobile/table-image-2-2x.jpg";
-import CarouselSlideImg3 from "@/assets/images/mobile/lamp-2x.jpg";
+import CarouselSlideMobileImg1 from "@/assets/images/mobile/barra-night-2x.jpg";
+import CarouselSlideMobileImg2 from "@/assets/images/mobile/table-image-2-2x.jpg";
+import CarouselSlideMobileImg3 from "@/assets/images/mobile/lamp-2x.jpg";
+
+import CarouselSlideDesktopImg1 from "@/assets/images/desktop/barra-night-1x.jpg";
+import CarouselSlideDesktopImg2 from "@/assets/images/desktop/table-image-2-1x.jpg";
+import CarouselSlideDesktopImg3 from "@/assets/images/desktop/lamp-2x.jpg";
 ---
 
 <section class="community | grid-main">
@@ -71,29 +75,30 @@ import CarouselSlideImg3 from "@/assets/images/mobile/lamp-2x.jpg";
       <button class="carousel__indicator"></button>
     </div>
     <CustomPicture
-      desktop={CarouselSlideImg1}
-      mobile={CarouselSlideImg1}
-      fallbackWidth={CarouselSlideImg1.width}
-      fallbackHeight={CarouselSlideImg1.height}
+      desktop={CarouselSlideDesktopImg1}
+      mobile={CarouselSlideMobileImg1}
+      fallbackWidth={CarouselSlideMobileImg1.width}
+      fallbackHeight={CarouselSlideMobileImg1.height}
       priority={false}
       alt=""
       class="slide slide--1"
       data-active
     />
     <CustomPicture
-      desktop={CarouselSlideImg2}
-      mobile={CarouselSlideImg2}
-      fallbackWidth={CarouselSlideImg2.width}
-      fallbackHeight={CarouselSlideImg2.height}
+      desktop={CarouselSlideDesktopImg2}
+      mobile={CarouselSlideMobileImg2}
+      fallbackWidth={CarouselSlideMobileImg2.width}
+      fallbackHeight={CarouselSlideMobileImg2.height}
       priority={false}
       alt=""
       class="slide slide--2"
     />
     <CustomPicture
-      desktop={CarouselSlideImg3}
-      mobile={CarouselSlideImg3}
-      fallbackWidth={CarouselSlideImg3.width}
-      fallbackHeight={CarouselSlideImg3.height}
+      desktop={CarouselSlideDesktopImg3}
+      tablet={CarouselSlideDesktopImg3}
+      mobile={CarouselSlideMobileImg3}
+      fallbackWidth={CarouselSlideMobileImg3.width}
+      fallbackHeight={CarouselSlideMobileImg3.height}
       priority={false}
       alt=""
       class="slide slide--3"
@@ -124,6 +129,7 @@ import CarouselSlideImg3 from "@/assets/images/mobile/lamp-2x.jpg";
     position: relative;
     margin-block-start: 20px;
     padding-inline-start: 20px;
+    font-size: var(--fs-250);
     font-family: var(--ff-secondary);
 
     &::before {
@@ -140,6 +146,7 @@ import CarouselSlideImg3 from "@/assets/images/mobile/lamp-2x.jpg";
   cite {
     display: block;
     margin-block-start: 10px;
+    font-size: var(--fs-400);
     font-family: var(--ff-main);
     font-style: normal;
   }
@@ -210,6 +217,56 @@ import CarouselSlideImg3 from "@/assets/images/mobile/lamp-2x.jpg";
 
   .carousel__indicator[data-indicator-active] {
     background-color: black;
+  }
+
+  @media (min-width: 46rem) {
+    .community {
+      margin-block: 40px;
+    }
+
+    .community__header {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 60px;
+    }
+
+    .community__header-content {
+      margin-block-end: 0px;
+    }
+
+    figure {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    figcaption {
+      align-self: center;
+      margin-block-start: 0px;
+      padding-inline-start: 25px;
+    }
+
+    /* Carousel Shit */
+
+    .carousel__button-wrapper,
+    .carousel__indicators {
+      display: none;
+    }
+
+    .carousel {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+
+      .slide {
+        position: relative;
+        opacity: 1;
+        visibility: unset;
+      }
+
+      .slide--3 {
+        grid-column: 1 / -1;
+      }
+    }
   }
 </style>
 
