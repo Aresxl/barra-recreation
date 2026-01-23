@@ -1,5 +1,7 @@
 ---
 const { title } = Astro.props;
+import mobileHeroImg from "@/assets/images/mobile/hero-main-2x.jpg";
+import desktopHeroImg from "@/assets/images/desktop/hero-main-1x.webp";
 ---
 
 <head>
@@ -22,14 +24,14 @@ const { title } = Astro.props;
   />
   <link
     rel="preload"
-    href="src/assets/images/mobile/hero-main-2x.jpg"
+    href={mobileHeroImg.src}
     as="image"
     type="image/jpg"
     media="(max-width: 639px)"
   />
   <link
     rel="preload"
-    href="src/assets/images/desktop/hero-main-1x.webp"
+    href={desktopHeroImg.src}
     as="image"
     type="image/webp"
     media="(min-width: 640px)"
