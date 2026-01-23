@@ -1,21 +1,32 @@
 ---
+// Components
+import CustomPicture from "../ui/CustomPicture.astro";
 
+// Images
+import MapImg from "@/assets/images/mobile/map.png";
 ---
 
 <section class="location | grid-main">
   <div class="map__wrapper">
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.007827770652!2d144.9680964767643!3d-37.8132856340121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad643acfb53b299%3A0xd46eb9f58e9e49c0!2sBarra!5e0!3m2!1sen!2sau!4v1768732242648!5m2!1sen!2sau"
-      width="600"
-      height="450"
-      style="border:0;"
-      allowfullscreen=""
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      class="map"
+    <div
+      class="map-facade"
+      data-map-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3152.007827770652!2d144.9680964767643!3d-37.8132856340121!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad643acfb53b299%3A0xd46eb9f58e9e49c0!2sBarra!5e0!3m2!1sen!2sau!4v1768732242648!5m2!1sen!2sau"
     >
-    </iframe>
+      <CustomPicture
+        desktop={MapImg}
+        mobile={MapImg}
+        fallbackWidth={MapImg.width}
+        fallbackHeight={MapImg.height}
+        alt=""
+        priority={false}
+        class="map__picture"
+      />
+      <button>View Interactive Map</button>
+    </div>
   </div>
+
+  <!-- Spacer -->
+
   <div class="location__details">
     <address>73 Little Collins Street, Melbourne, 3000</address>
     <p>
@@ -52,9 +63,37 @@
     border-radius: 20px;
   }
 
-  .map {
+  .map-facade {
+    position: relative;
+    display: grid;
+    place-items: center;
+
     max-width: 100%;
+    width: 100%;
     border-radius: 20px;
+
+    button {
+      position: absolute;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background-color: hsl(0 0% 0% / 0.7);
+      color: var(--clr-neutral-0);
+      font-weight: var(--fw-700);
+      font-size: var(--fs-600);
+      cursor: pointer;
+    }
+
+    .map__picture {
+      position: relative;
+
+      :after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-color: hsl(0 0% 0% / 0.1);
+      }
+    }
   }
 
   .location__details {
@@ -88,3 +127,25 @@
     }
   }
 </style>
+
+<script>
+  const mapFacade = document.querySelector<HTMLElement>(".map-facade");
+  const button = mapFacade!.querySelector("button");
+  console.log(mapFacade);
+
+  if (mapFacade && button) {
+    button.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = mapFacade.dataset.mapSrc ?? "";
+      iframe.width = `600`;
+      iframe.height = `450`;
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "no-referrer-when-downgrade";
+      iframe.allowFullscreen = true;
+      iframe.style.border = "0";
+      iframe.classList.add(`map`);
+
+      mapFacade.replaceWith(iframe);
+    });
+  }
+</script>
