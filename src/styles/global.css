@@ -30,6 +30,12 @@
 
     --page-padding: 10px;
   }
+
+  @media (min-width: 62.5rem) {
+    :root {
+      --header-height: 135px;
+    }
+  }
 }
 
 @layer reset {
@@ -150,11 +156,29 @@
 }
 
 @layer base {
+  /* idk */
+
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+    touch-action: none;
+  }
+
   /* Layout */
 
   .grid-main {
     --grid-main-gap: 10px;
-    --max: 69.375rem;
+    --max: 71.25rem;
     --content: min(100% - (2 * var(--page-padding)), var(--max));
     --col-size: calc((var(--content) - 2 * var(--grid-main-gap)) / 3);
 

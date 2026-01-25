@@ -166,6 +166,39 @@ const heroGifCollection = await getCollection(`gifImages`);
       transform: translateX(calc(-50% - 16px));
     }
   }
+
+  @media (min-width: 46rem) {
+    .picture__wrapper-top {
+      grid-column: 1 / 9;
+      margin-inline-end: -10px;
+    }
+
+    .slideshow__wrapper {
+      grid-area: 1 / 10 / 2 / -1;
+      aspect-ratio: unset;
+      margin-inline-start: -10px;
+    }
+
+    .hero__header {
+      grid-column: 2 / 9;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .picture__wrapper-top {
+      grid-column: 1 / 13;
+      margin-inline-end: -15px;
+    }
+
+    .slideshow__wrapper {
+      grid-column: 14 / -1;
+      margin-inline-start: -15px;
+    }
+
+    .hero__header {
+      grid-column: 3 / 12;
+    }
+  }
 </style>
 
 <script>

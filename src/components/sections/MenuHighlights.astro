@@ -403,6 +403,21 @@ const menuSlideshowCollection = await getCollection("menuHighlightsCarousel");
       transition-delay: 1.2s;
     }
   }
+
+  @media (min-width: 62.5rem) {
+    .carousel {
+      max-width: unset;
+      margin-block-start: 60px;
+    }
+
+    .carousel__list {
+      grid-auto-columns: 23%;
+    }
+
+    .unknown-name-section {
+      margin-block: 70px 120px;
+    }
+  }
 </style>
 
 <script>

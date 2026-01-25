@@ -109,9 +109,6 @@ const mobileJpg = await getImage({
   width: fallbackWidth,
   height: fallbackHeight,
 });
-
-console.log("THIS IS THE DESKTOP AVIF", desktopAvif);
-console.log("THIS IS THE MOBILE AVIF", mobileAvif);
 ---
 
 <picture class={className} {...rest}>
@@ -212,6 +209,13 @@ console.log("THIS IS THE MOBILE AVIF", mobileAvif);
       border-top-right-radius: 0px;
       height: 100%;
       object-fit: cover;
+    }
+  }
+
+  @media (min-width: 62.5rem) {
+    .picture__hero img {
+      height: 800px;
+      width: 100%;
     }
   }
 </style>

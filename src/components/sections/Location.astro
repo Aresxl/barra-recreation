@@ -126,12 +126,21 @@ import MapImg from "@/assets/images/mobile/map.png";
       text-align: left;
     }
   }
+
+  @media (min-width: 62.5rem) {
+    .map__wrapper {
+      grid-column: 2 / 13;
+    }
+
+    .location__details {
+      grid-column: 15 / -2;
+    }
+  }
 </style>
 
 <script>
   const mapFacade = document.querySelector<HTMLElement>(".map-facade");
   const button = mapFacade!.querySelector("button");
-  console.log(mapFacade);
 
   if (mapFacade && button) {
     button.addEventListener("click", () => {

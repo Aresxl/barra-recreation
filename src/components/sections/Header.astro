@@ -3,6 +3,8 @@ import LinkOrButton from "../ui/LinkOrButton.astro";
 import BarraLogo from "@/assets/icons/barra-text-logo.svg";
 ---
 
+<div class="mobile-nav-overlay"></div>
+
 <header class="site__header | grid-main">
   <div class="site__header-inner">
     <button class="nav-toggle" aria-controls="mobile-primary-nav" aria-expanded="false">
@@ -16,6 +18,36 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
         </g>
       </svg>
     </button>
+
+    <nav class="nav nav--left" aria-label="Desktop navigation left">
+      <ul>
+        <li>
+          <a href="/menu">Menu</a>
+        </li>
+        <li>
+          <a href="/events-groups">Events & Groups</a>
+        </li>
+        <li>
+          <a href="/whats-on">Whats' On</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="site__logo-wrapper">
+      <a href="/">
+        <BarraLogo class="site-logo" />
+      </a>
+    </div>
+
+    <div class="nav__right-wrapper">
+      <nav class="nav nav--right" aria-label="Desktop navigation right">
+        <ul>
+          <li><a href="/gift-cards">Gift cards</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </nav>
+      <LinkOrButton as="a" href="/book" variant="primary" text="book now" class="cta-btn" />
+    </div>
 
     <nav id="mobile-primary-nav" class="mobile-nav" aria-label="Mobile primary navigation">
       <ul>
@@ -36,44 +68,15 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
         </li>
       </ul>
     </nav>
-
-    <nav class="nav nav--left" aria-label="Desktop navigation left">
-      <ul>
-        <li>
-          <a href="/menu">Menu</a>
-        </li>
-        <li>
-          <a href="/events-groups">Events & Groups</a>
-        </li>
-        <li>
-          <a href="/whats-on">Whats' On</a>
-        </li>
-      </ul>
-    </nav>
-
-    <div>
-      <a href="/">
-        <BarraLogo class="site-logo" />
-      </a>
-    </div>
-
-    <div class="nav__right-wrapper">
-      <nav class="nav nav--right" aria-label="Desktop navigation right">
-        <ul>
-          <li><a href="/gift-cards">Gift cards</a></li>
-          <li><a href="/contact">Contact</a></li>
-        </ul>
-      </nav>
-      <LinkOrButton as="a" href="/book" variant="primary" text="book now" class="cta-btn" />
-    </div>
   </div>
-
-  <!-- Unsure of how to do separate nav group -->
 </header>
 
 <style>
   .site__header {
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 2000;
+    background-color: var(--clr-neutral-0);
   }
 
   .site__header-inner {
@@ -91,10 +94,10 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
 
   .mobile-nav {
     position: absolute;
+    z-index: 200;
     top: 100%;
     left: 0;
     right: 0;
-    z-index: 100;
 
     display: block;
 
@@ -105,6 +108,7 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
     transition-property: transform, opacity;
 
     padding-inline-start: 10px;
+    padding-block-start: 25px;
     padding-block-end: 10px;
     background-color: var(--clr-neutral-0);
 
@@ -115,7 +119,7 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
   }
 
   nav a {
-    font-size: var(--fs-400);
+    font-size: var(--fs-500);
     color: var(--clr-neutral-900);
     text-transform: uppercase;
     cursor: pointer;
@@ -126,13 +130,32 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
     color: var(--clr-primary-gold-400);
   }
 
-  .nav-toggle[aria-expanded="true"] + .mobile-nav {
+  .nav-toggle[aria-expanded="true"] ~ .mobile-nav {
     opacity: 1;
     transform: translateY(0);
   }
 
   .nav {
     display: none;
+  }
+
+  .mobile-nav-overlay {
+    position: fixed;
+    inset: 0;
+    background: hsl(0 0% 0% / 0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0s linear 0.3s;
+    z-index: 100;
+    backdrop-filter: blur(2px);
+  }
+
+  body.menu-open .mobile-nav-overlay {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.3s ease;
   }
 
   /*  */
@@ -223,13 +246,52 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
       gap: 20px;
     }
   }
+
+  @media (min-width: 62.5rem) {
+    .site__header-inner {
+      padding-block: 40px;
+    }
+
+    .site-logo {
+      width: 180px;
+      height: 55px;
+    }
+
+    .nav {
+      ul {
+        gap: 30px;
+      }
+    }
+
+    .nav__right-wrapper {
+      gap: 30px;
+    }
+
+    nav a {
+      letter-spacing: 0.5px;
+    }
+  }
 </style>
 
 <script>
   const navToggle = document.querySelector(`.nav-toggle`);
+  const mobileNav = document.querySelector(`.mobile-nav`);
+  const overlay = document.querySelector(`.mobile-nav-overlay`);
+  const body = document.body;
 
-  navToggle?.addEventListener(`click`, () => {
-    const isExpanded = navToggle.getAttribute(`aria-expanded`) === `true`;
-    navToggle.setAttribute(`aria-expanded`, String(!isExpanded));
-  });
+  function toggleMenu() {
+    const isOpen = body.classList.toggle(`menu-open`);
+
+    navToggle!.setAttribute(`aria-expanded`, String(isOpen));
+
+    if (isOpen) {
+      body.dataset.scrollY = window.scrollY.toString();
+    } else {
+      const scrollY = Number(body.dataset.scrollY) || 0;
+      window.scrollTo(0, scrollY);
+    }
+  }
+
+  navToggle?.addEventListener(`click`, toggleMenu);
+  overlay?.addEventListener(`click`, toggleMenu);
 </script>
