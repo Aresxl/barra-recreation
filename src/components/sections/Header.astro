@@ -7,7 +7,12 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
 
 <header class="site__header | grid-main">
   <div class="site__header-inner">
-    <button class="nav-toggle" aria-controls="mobile-primary-nav" aria-expanded="false">
+    <button
+      class="nav-toggle"
+      aria-controls="mobile-primary-nav"
+      aria-expanded="false"
+      aria-label="Open mobile navigation"
+    >
       <svg class="hamburger-icon" width="40" viewBox="0 0 100 100" aria-hidden="true">
         <g class="top-group">
           <rect class="line line--top" x="15" y="25" rx="7.5" width="70" height="9"></rect>
@@ -34,8 +39,8 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
     </nav>
 
     <div class="site__logo-wrapper">
-      <a href="/">
-        <BarraLogo class="site-logo" />
+      <a href="/" aria-label="BARRA Home">
+        <BarraLogo class="site-logo" aria-hidden="true" />
       </a>
     </div>
 
@@ -99,18 +104,21 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
     left: 0;
     right: 0;
 
-    display: block;
-
-    opacity: 0;
-
-    transform: translateY(-10px);
-    transition: 250ms ease-in-out;
-    transition-property: transform, opacity;
-
+    /* display: block; */
     padding-inline-start: 10px;
     padding-block-start: 25px;
     padding-block-end: 10px;
     background-color: var(--clr-neutral-0);
+    opacity: 0;
+
+    display: none;
+
+    transform: translateY(-10px);
+    transition: 250ms ease-in-out;
+    transition-property: transform, opacity, display;
+    transition-behavior: allow-discrete;
+
+    /*  */
 
     ul {
       display: grid;
@@ -131,8 +139,14 @@ import BarraLogo from "@/assets/icons/barra-text-logo.svg";
   }
 
   .nav-toggle[aria-expanded="true"] ~ .mobile-nav {
+    display: block;
     opacity: 1;
     transform: translateY(0);
+
+    @starting-style {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
   }
 
   .nav {

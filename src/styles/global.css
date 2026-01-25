@@ -225,8 +225,9 @@
     font-family: var(--ff-body-text);
   }
 
-  /* .h1 {
-  } */
+  h1 {
+    font-size: 1rem;
+  }
 
   .h2 {
     font-family: var(--ff-secondary);

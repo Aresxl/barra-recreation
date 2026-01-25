@@ -4,7 +4,7 @@ import SiteLogo from "@/assets/icons/file.svg";
 
 <footer class="site__footer | grid-main">
   <SiteLogo />
-  <p>Barra is brought to you by renascence group</p>
+  <p class="uppercase">Barra is brought to you by renascence group</p>
   <nav class="site__footer-nav">
     <ul class="">
       <li><a href="/contact">Contact</a></li>
@@ -42,6 +42,12 @@ import SiteLogo from "@/assets/icons/file.svg";
     a {
       color: var(--clr-primary-red-600);
     }
+  }
+
+  .site__footer .uppercase {
+    text-transform: uppercase;
+    font-weight: var(--fw-700);
+    letter-spacing: 1px;
   }
 
   .sister-venues {
