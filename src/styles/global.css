@@ -23,7 +23,7 @@
     --fw-500: 500;
     --fw-700: 700;
 
-    --ff-main: "Sofia Sans Condensed";
+    --ff-main: "Sofia Sans Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --ff-secondary: "Inter";
 
     --ff-body-text: var(--ff-main);
