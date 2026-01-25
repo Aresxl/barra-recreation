@@ -37,7 +37,7 @@ const heroGifCollection = await getCollection(`gifImages`);
           fallbackWidth={data.mobile.width}
           fallbackHeight={data.mobile.height}
           alt=""
-          priority={i === 0}
+          priority={false}
           class:list={[`slideshow__picture`, i === 0 && `slideshow__picture--active`]}
         />
       ))
